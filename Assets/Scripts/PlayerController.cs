@@ -1,48 +1,54 @@
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float defaultMoveSpeed = 5f;
     public float groundDrag = 1f;
-    [SerializeField] private float currentMoveSpeed;
+    public float currentMoveSpeed { get; private set; }
 
     [Header("Jumping")]
     public float defaultJumpForce = 5f;
     public float jumpCooldown = 1.2f;
     public float airMultiplier = 0.6f;
     public bool isJumpReady = true;
-    [SerializeField] private float currentJumpForce;
+    public float currentJumpForce { get; private set; }
 
     [Header("Ground Check")]
     public float playerHeight;
-    public LayerMask whatIsGround;
+    public LayerMask allGroundLayers;
     [SerializeField] bool isGrounded;
 
     [Header("Reference")]
     public Transform orientation;
 
     [Header("Paint Mechanic")]
-    [SerializeField] bool isOnBlue;
-    [SerializeField] bool isOnGreen;
+    public PlayerEffects playerEffects;
     public LayerMask blueLayer;
     public LayerMask greenLayer;
-    public float blueVelBoost = 1f;
-    public float greenJumpBoost = 1f;
+    public bool isOnBlue;
+    public bool isOnGreen;
+    public float blueVelBoost = 1.5f;
+    public float greenJumpBoost = 1.5f;
+    public float blueLingerTime = 1.5f;
 
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
 
-    Rigidbody rb;
+    public Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerEffects = GetComponent<PlayerEffects>();
         rb.freezeRotation = true;
         isJumpReady = true;
+        currentMoveSpeed = defaultMoveSpeed;
+        currentJumpForce = defaultJumpForce;
     }
 
     private void Update()
@@ -74,7 +80,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isJumpReady && isGrounded)
         {
+            isJumpReady = false;
+
             Jump();
+
+            Invoke(nameof(RefreshJumpCooldown), jumpCooldown);
         }
     }
     
@@ -83,44 +93,43 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (isGrounded)
             rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f, ForceMode.Force);
-        else
+        else if (!isGrounded)
             rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
 
+    // FIX THIS!!!
     private void SpeedControl()
     {
         Vector3 flatVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         if (flatVelocity.magnitude > currentMoveSpeed)
         {
-            Vector3 limitedVel = flatVelocity.normalized * currentMoveSpeed;
-            rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
+            Vector3 limitedVelocity = flatVelocity.normalized * currentMoveSpeed;
+            rb.linearVelocity = new Vector3(limitedVelocity.x, rb.linearVelocity.y, limitedVelocity.z);
         }
     }
 
     private void Jump()
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        rb.AddForce(Vector3.up * currentJumpForce * 10f * Time.deltaTime, ForceMode.Impulse);
-        isJumpReady = false;
-        StartCoroutine(RefreshJumpCooldown());
+        rb.AddForce(transform.up * currentJumpForce, ForceMode.Impulse);
     }
 
-    IEnumerator RefreshJumpCooldown()
+    private void RefreshJumpCooldown()
     {
-        yield return new WaitForSeconds(jumpCooldown);
         isJumpReady = true;
     }
 
     private void CheckBelow()
     {
         //Ground Check
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        //Check Blue
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, allGroundLayers);
+        //Check Colors
         isOnBlue = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, blueLayer);
         isOnGreen = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, greenLayer);
     }
 
+    
     private void HandleColorBuffs()
     {
         if (!isOnBlue && !isOnGreen)
@@ -135,6 +144,6 @@ public class PlayerMovement : MonoBehaviour
         if (isOnGreen)
         {
             currentJumpForce = defaultJumpForce * greenJumpBoost;
-        }    
+        }
     }
 }
