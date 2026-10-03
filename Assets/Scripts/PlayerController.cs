@@ -1,75 +1,71 @@
 using NUnit.Framework;
 using System.Collections;
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
-    public float defaultMoveSpeed = 5f;
+    public float moveSpeed = 5f;
     public float groundDrag = 1f;
-    public float currentMoveSpeed { get; private set; }
-
+    public float maxSpeed = 5f;
+    private bool isDecaying = false;
     [Header("Jumping")]
-    public float defaultJumpForce = 5f;
+    public float jumpForce = 5f;
     public float jumpCooldown = 1.2f;
     public float airMultiplier = 0.6f;
     public bool isJumpReady = true;
-    public float currentJumpForce { get; private set; }
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask allGroundLayers;
-    [SerializeField] bool isGrounded;
+    [SerializeField] private bool isGrounded;
+    public bool IsOnBluePaint { get; private set; }
+    public bool IsOnGreenPaint { get; private set; }
+    [SerializeField] private float sphereCastRadius = 0.4f;
+    public event Action OnGetOnBluePaint;
+    public event Action OnGetOnGreenPaint;
+    public event Action OnGetOffPaint;
 
-    [Header("Reference")]
+    [Header("Other References")]
     public Transform orientation;
-
-    [Header("Paint Mechanic")]
-    public PlayerEffects playerEffects;
-    public LayerMask blueLayer;
-    public LayerMask greenLayer;
-    public bool isOnBlue;
-    public bool isOnGreen;
-    public float blueVelBoost = 1.5f;
-    public float greenJumpBoost = 1.5f;
-    public float blueLingerTime = 1.5f;
+    public PlayerPaintEffects playerPaintEffects { get; private set; }
 
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
 
-    public Rigidbody rb;
+    public Rigidbody Rb { get; private set; }
+
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        playerEffects = GetComponent<PlayerEffects>();
-        rb.freezeRotation = true;
+        Rb = GetComponent<Rigidbody>();
+        Rb.freezeRotation = true;
+        playerPaintEffects = GetComponent<PlayerPaintEffects>();
         isJumpReady = true;
-        currentMoveSpeed = defaultMoveSpeed;
-        currentJumpForce = defaultJumpForce;
+        maxSpeed = moveSpeed;
     }
 
     private void Update()
     {
-        // For Ground and Colors
-        CheckBelow();
-        HandleColorBuffs();
         HandleInputs();
 
         //Limits Max Speed and such
+        AdjustMaxSpeed();
         SpeedControl();
 
         //Ground Drag
         if (isGrounded)
-            rb.linearDamping = groundDrag;
+            Rb.linearDamping = groundDrag;
         else
-            rb.linearDamping = 0f;
+            Rb.linearDamping = 0f;
     }
 
     private void FixedUpdate()
     {
+        CheckBelow();
         MovePlayer();
     }
 
@@ -92,27 +88,64 @@ public class PlayerController : MonoBehaviour
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (isGrounded)
-            rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f, ForceMode.Force);
+            Rb.AddForce(moveDirection.normalized * moveSpeed * playerPaintEffects.SpeedMultiplier * 10f, ForceMode.Force);
         else if (!isGrounded)
-            rb.AddForce(moveDirection.normalized * currentMoveSpeed * 10f * airMultiplier, ForceMode.Force);
+            Rb.AddForce(moveDirection.normalized * moveSpeed * playerPaintEffects.SpeedMultiplier * 10f * airMultiplier, ForceMode.Force);
     }
 
-    // FIX THIS!!!
+    private void AdjustMaxSpeed()
+    {
+        if (IsOnBluePaint)
+        {
+            StopCoroutine(DecayMaxSpeed()); // Stop any ongoing decay coroutine if the player is on blue paint
+            maxSpeed = moveSpeed * playerPaintEffects.SpeedMultiplier;
+            //Debug.Log($"Player is on blue paint, increasing max speed to {maxSpeed}.");
+        }
+        else
+        {
+            // Gradually decay the max speed back to the normal moveSpeed when not on blue paint
+            if (!isDecaying)
+            {
+                isDecaying = true;
+                StartCoroutine(DecayMaxSpeed());
+            }
+        }
+    }
+
+    private IEnumerator DecayMaxSpeed()
+    {
+        //Debug.Log($"Player is not on blue paint, decaying max speed from {maxSpeed} to {moveSpeed}.");
+        while (maxSpeed > moveSpeed)
+        {
+            maxSpeed -= 0.4f; // Adjust the decay rate as needed
+            if (IsOnBluePaint)
+            {
+                isDecaying = false; // Stop decaying if the player steps back on blue paint
+                //Debug.Log($"Player stepped back on blue paint, stopping decay and setting max speed to {maxSpeed}.");
+                yield break;
+            }
+            yield return new WaitForSeconds(0.1f); // Adjust the wait time as needed
+        }
+        maxSpeed = moveSpeed; // Ensure it doesn't go below the normal moveSpeed
+        isDecaying = false;
+        //Debug.Log($"Max speed has decayed to normal move speed: {maxSpeed}.");
+    }
+
     private void SpeedControl()
     {
-        Vector3 flatVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        Vector3 flatVelocity = new Vector3(Rb.linearVelocity.x, 0f, Rb.linearVelocity.z);
 
-        if (flatVelocity.magnitude > currentMoveSpeed)
+        if (flatVelocity.magnitude > maxSpeed)
         {
-            Vector3 limitedVelocity = flatVelocity.normalized * currentMoveSpeed;
-            rb.linearVelocity = new Vector3(limitedVelocity.x, rb.linearVelocity.y, limitedVelocity.z);
+            Vector3 limitedVelocity = flatVelocity.normalized * maxSpeed;
+            Rb.linearVelocity = new Vector3(limitedVelocity.x, Rb.linearVelocity.y, limitedVelocity.z);
         }
     }
 
     private void Jump()
     {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        rb.AddForce(transform.up * currentJumpForce, ForceMode.Impulse);
+        Rb.linearVelocity = new Vector3(Rb.linearVelocity.x, 0f, Rb.linearVelocity.z);
+        Rb.AddForce(transform.up * jumpForce * playerPaintEffects.JumpMultiplier, ForceMode.Impulse);
     }
 
     private void RefreshJumpCooldown()
@@ -122,28 +155,55 @@ public class PlayerController : MonoBehaviour
 
     private void CheckBelow()
     {
-        //Ground Check
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, allGroundLayers);
-        //Check Colors
-        isOnBlue = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, blueLayer);
-        isOnGreen = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, greenLayer);
-    }
 
-    
-    private void HandleColorBuffs()
-    {
-        if (!isOnBlue && !isOnGreen)
+        if (Physics.SphereCast(transform.position, sphereCastRadius, Vector3.down, out RaycastHit hit, playerHeight * 0.5f + 0.2f))
         {
-            currentMoveSpeed = defaultMoveSpeed;
-            currentJumpForce = defaultJumpForce;
-        }
-        if (isOnBlue)
-        {
-            currentMoveSpeed = defaultMoveSpeed * blueVelBoost;
-        }
-        if (isOnGreen)
-        {
-            currentJumpForce = defaultJumpForce * greenJumpBoost;
+            PaintPatch paint = hit.collider.GetComponent<PaintPatch>();
+
+            if (paint != null)
+            {
+                playerPaintEffects.SetPaint(paint.PaintType);
+                switch (paint.PaintType)
+                {
+                    case PaintType.Blue:
+                        // Invoke Once
+                        if (!IsOnBluePaint)
+                        {
+                            OnGetOnBluePaint.Invoke();
+                            Debug.Log("Player is on blue paint, invoking OnGetOnBluePaint event.");
+                        }
+                        IsOnBluePaint = true;
+                        IsOnGreenPaint = false;
+                        break;
+                    case PaintType.Green:
+                        // Invoke Once
+                        if (!IsOnGreenPaint)
+                        {
+                            OnGetOnGreenPaint.Invoke();
+                            Debug.Log("Player is on green paint, invoking OnGetOnGreenPaint event.");
+                        }
+                        IsOnGreenPaint = true;
+                        IsOnBluePaint = false;
+                        break;
+                    default:
+                        IsOnBluePaint = false;
+                        IsOnGreenPaint = false;
+                        break;
+                }
+            }
+            else
+            {
+                playerPaintEffects.ClearPaint();
+                // Invoke Once
+                if (IsOnBluePaint || IsOnGreenPaint)
+                {
+                    OnGetOffPaint.Invoke();
+                    Debug.Log("Player is off paint, invoking OnGetOffPaint event.");
+                }
+                IsOnBluePaint = false;
+                IsOnGreenPaint = false;
+            }
         }
     }
 }
