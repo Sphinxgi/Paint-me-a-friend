@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - NormalGround
-  - 
+  - NormalMisc
   - BluePaint
   - GreenPaint
   - 
@@ -43,4 +43,3 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
-  m_MigratedRenderPipelines: []

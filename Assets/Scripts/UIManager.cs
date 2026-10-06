@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PaintBrush paintBrush;
     [Header("Indicator Texts")]
     [SerializeField] private TextMeshProUGUI speedText;
-    [SerializeField] private TextMeshProUGUI jumpText;
+    //[SerializeField] private TextMeshProUGUI jumpText;
     [Header("Color Selection")]
     [SerializeField] private RectTransform blueColorImage;
     [SerializeField] private RectTransform greenColorImage;
@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     private void UpdateIndicatorTexts()
     {
         speedText.text = $"Speed: {pc.Rb.linearVelocity.magnitude:F2}";
-        jumpText.text = $"Jump: {pc.jumpForce * playerPaintEffects.JumpMultiplier:F0}";
+        //jumpText.text = $"Jump: {pc.jumpForce * playerPaintEffects.JumpMultiplier:F0}";
     }
 
     private void UpdateColorSelection()
