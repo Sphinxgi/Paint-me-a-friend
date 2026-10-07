@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         Rb.linearVelocity = new Vector3(Rb.linearVelocity.x, 0f, Rb.linearVelocity.z);
-        Rb.AddForce(transform.up * jumpForce * playerPaintEffects.JumpMultiplier, ForceMode.Impulse);
+        Rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
     private void RefreshJumpCooldown()
