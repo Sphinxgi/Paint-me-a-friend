@@ -35,17 +35,7 @@ public class UIManager : MonoBehaviour
         playerPaintEffects = FindAnyObjectByType<PlayerPaintEffects>();
         paintBrush = FindAnyObjectByType<PaintBrush>();
         selectionIndicator.localScale = indicatorRectScale;
-        UpdateColorSelection();
         HideVignette();
-    }
-
-    void Update()
-    {
-        UpdateIndicatorTexts();
-    }
-
-    private void OnEnable()
-    {
         if (paintBrush != null)
         {
             paintBrush.OnPaintColorChanged += UpdateColorSelection;
@@ -58,6 +48,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        UpdateIndicatorTexts();
+    }
+
     private void UpdateIndicatorTexts()
     {
         speedText.text = $"Speed: {pc.Rb.linearVelocity.magnitude:F2}";
@@ -66,7 +61,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateColorSelection()
     {
-        DOTween.KillAll(false);
+        //DOTween.KillAll(false);
         if (paintBrush.CurrentPaint == PaintType.Blue)
         {
             TriggerScaleChange(blueColorImage, selectedRectScale);
