@@ -13,10 +13,12 @@ public class PaintBounce : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        Debug.Log("Green is awake");
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("somthing entered green");
         PaintPatch patch = other.GetComponent<PaintPatch>();
 
         if (patch == null)
@@ -27,7 +29,7 @@ public class PaintBounce : MonoBehaviour
 
         if (Time.time < lastBounceTime + bounceCooldown)
             return;
-
+        Debug.Log("Green is deep in working");
         Vector3 normal = patch.transform.forward;
 
         float velocityIntoSurface = Vector3.Dot(rb.linearVelocity, normal);
