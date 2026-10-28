@@ -42,6 +42,8 @@ public class PaintBrush : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+            return;
         UpdatePaintPreview();
         UpdatePreviewTexture();
 

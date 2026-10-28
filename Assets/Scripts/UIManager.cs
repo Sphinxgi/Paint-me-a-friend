@@ -29,8 +29,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float vignetteTweenDuration = 0.4f;
     [SerializeField] private Tween[] VignetteAnims;
 
+    private void OnEnable()
+    {
+        DOTween.Kill(transform);
+    }
+
     void Start()
     {
+        //DOTween.KillAll();
         pc = FindAnyObjectByType<PlayerController>();
         playerPaintEffects = FindAnyObjectByType<PlayerPaintEffects>();
         paintBrush = FindAnyObjectByType<PaintBrush>();
@@ -50,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        UpdateIndicatorTexts();
+        //UpdateIndicatorTexts();
     }
 
     private void UpdateIndicatorTexts()
