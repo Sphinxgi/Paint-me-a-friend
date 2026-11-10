@@ -234,7 +234,7 @@ public class MainMenuUI : MonoBehaviour
             case "QuitGame_Button" when !isMainButtonsDisabled:
                 Debug.Log("Quit Game button clicked");
                 Application.Quit();
-                UnityEditor.EditorApplication.ExitPlaymode();
+                //UnityEditor.EditorApplication.ExitPlaymode();
                 break;
             case "LoadStage1_Button" when isLoadGameOn:
                 SceneManager.LoadScene(loadStageScene1Number);
