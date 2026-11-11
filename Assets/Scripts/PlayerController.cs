@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
+    [Header("General Raycast")]
+    public float generalRaycastDistance = 20f;
+    public Ray generalRay { get; private set; }
     [Header("Movement")]
     public float moveSpeed = 5f;
     public float groundDrag = 1f;
@@ -15,6 +20,13 @@ public class PlayerController : MonoBehaviour
     public float jumpCooldown = 1.2f;
     public float airMultiplier = 0.6f;
     public bool isJumpReady = true;
+    [Header("Pick Up Object")]
+    public bool isHoldingObject { get; private set; }
+    public PickUpObject heldObject { get; private set; }
+    public Transform holdParent { get; private set; }
+    [SerializeField] private LayerMask environmentLayer;
+    [SerializeField] private float holdCastRadius = 0.2f;
+    [SerializeField] private Vector3 defaultHoldPos;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -30,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [Header("Other References")]
     public Transform orientation;
     public PlayerPaintEffects playerPaintEffects { get; private set; }
+    [SerializeField] private Camera playerCamera;
 
     float horizontalInput;
     float verticalInput;
@@ -38,6 +51,20 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody Rb { get; private set; }
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        holdParent = GameObject.Find("HoldParent").transform;
+        defaultHoldPos = holdParent.localPosition;
+    }
 
     void Start()
     {
@@ -45,12 +72,16 @@ public class PlayerController : MonoBehaviour
         Rb.freezeRotation = true;
         playerPaintEffects = GetComponent<PlayerPaintEffects>();
         isJumpReady = true;
+        isHoldingObject = false;
         maxSpeed = moveSpeed;
+        playerCamera = Camera.main;
     }
 
     private void Update()
     {
+        generalRay = playerCamera.ScreenPointToRay(Input.mousePosition);
         HandleInputs();
+        HandlePickUp();
 
         //Limits Max Speed and such
         AdjustMaxSpeed();
@@ -67,6 +98,10 @@ public class PlayerController : MonoBehaviour
     {
         CheckBelow();
         MovePlayer();
+    }
+    private void LateUpdate()
+    {
+        UpdateHoldPosition();
     }
 
     private void HandleInputs()
@@ -204,6 +239,58 @@ public class PlayerController : MonoBehaviour
                 IsOnBluePaint = false;
                 IsOnGreenPaint = false;
             }
+        }
+    }
+
+    private void HandlePickUp()
+    {
+        if (isHoldingObject && Input.GetKeyDown(KeyCode.E))
+        {
+            heldObject.PutDown();
+            heldObject = null;
+            isHoldingObject = false;
+            return;
+        }
+
+        if (Physics.Raycast(generalRay, out RaycastHit hit, generalRaycastDistance))
+        {
+            PickUpObject pickUpObject = hit.collider.GetComponent<PickUpObject>();
+
+            if (pickUpObject != null &&
+                Input.GetKeyDown(KeyCode.E) &&
+                !pickUpObject.isBeingHeld &&
+                !isHoldingObject)
+            {
+                pickUpObject.PickUp();
+                heldObject = pickUpObject;
+                isHoldingObject = true;
+            }
+        }
+    }
+
+    private void UpdateHoldPosition()
+    {
+        // Always reset to the original position first.
+        holdParent.localPosition = defaultHoldPos;
+
+        if (!isHoldingObject) return;
+
+        Vector3 origin = transform.position;
+        Vector3 target = holdParent.position;
+
+        Vector3 direction = (target - origin).normalized;
+        float distance = Vector3.Distance(origin, target);
+
+        if (Physics.SphereCast(
+            origin,
+            holdCastRadius,
+            direction,
+            out RaycastHit hit,
+            distance,
+            environmentLayer,
+            QueryTriggerInteraction.Ignore))
+        {
+            holdParent.position = hit.point - direction * holdCastRadius;
         }
     }
 }

@@ -3,11 +3,9 @@ using System;
 
 public class PaintBrush : MonoBehaviour
 {
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask paintableLayer;
     [SerializeField] private PaintPatch paintPatchPrefab;
 
-    [SerializeField] private float paintDistance = 20f;
     [SerializeField] private float paintDuration = 10f;
     [SerializeField] private float brushSpacing = 0.05f;
     [SerializeField] private float surfaceOffset = 0.01f; // Offset to prevent z-fighting
@@ -42,7 +40,7 @@ public class PaintBrush : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale == 0)
+        if (Time.timeScale == 0 || PlayerController.Instance.isHoldingObject)
             return;
         UpdatePaintPreview();
         UpdatePreviewTexture();
@@ -75,7 +73,7 @@ public class PaintBrush : MonoBehaviour
 
     private void Paint()
     {
-        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = PlayerController.Instance.generalRay;
 
         if (!TryGetPaintableHit(ray, out RaycastHit hit))
         {
@@ -176,7 +174,7 @@ public class PaintBrush : MonoBehaviour
 
     private void Erase()
     {
-        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = PlayerController.Instance.generalRay;
 
         if (!TryGetPaintableHit(ray, out RaycastHit hit))
         {
@@ -255,7 +253,7 @@ public class PaintBrush : MonoBehaviour
     {
         RaycastHit[] hits = Physics.RaycastAll(
             ray,
-            paintDistance
+            PlayerController.Instance.generalRaycastDistance
         );
 
         System.Array.Sort(hits, (a, b) =>
@@ -287,7 +285,7 @@ public class PaintBrush : MonoBehaviour
 
     private void UpdatePaintPreview()
     {
-        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = PlayerController.Instance.generalRay;
 
         Vector3 targetScale = Vector3.zero;
 
