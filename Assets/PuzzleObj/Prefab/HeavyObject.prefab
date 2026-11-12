@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3697141269540058082}
   - component: {fileID: 5998653667384131506}
   - component: {fileID: 7936337623699218319}
+  - component: {fileID: 3868110837237634041}
+  - component: {fileID: 2833472331739998104}
   m_Layer: 0
   m_Name: HeavyObject
   m_TagString: Untagged
@@ -82,6 +84,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3868110837237634041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721809106332470170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0224b2c1fd0fc6e46b552e3a341938d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2833472331739998104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721809106332470170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e99c24461a5fa49833fdc52b67a98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceSpeed: 7
+  bounceCooldown: 0.1
+  minimumImpactSpeed: 3
 --- !u!1001 &324627502989021414
 PrefabInstance:
   m_ObjectHideFlags: 0

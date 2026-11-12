@@ -1739,6 +1739,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38311be557fce4949bf8a6435d9ecf0c, type: 3}
+--- !u!1 &82431455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 82431456}
+  m_Layer: 2
+  m_Name: HoldParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &82431456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82431455}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 943097701}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &82821941
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14303,6 +14334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 82431456}
   - {fileID: 1397277207}
   m_Father: {fileID: 1491828684}
   m_LocalEulerAnglesHint: {x: 0, y: 49.365, z: 0}
@@ -19804,12 +19836,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96c857709c23a74793117b49d4ada18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 1397277211}
   paintableLayer:
     serializedVersion: 2
     m_Bits: 12288
   paintPatchPrefab: {fileID: 1146858106877731604, guid: fb2584703b83edf4b8b146ef33b7f83c, type: 3}
-  paintDistance: 6
   paintDuration: 60
   brushSpacing: 0.05
   surfaceOffset: 0.01
@@ -32886,6 +32916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9131e13d9d9c8b41ab86bf27f31d228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  generalRaycastDistance: 20
   moveSpeed: 4
   groundDrag: 2.2
   maxSpeed: 5
@@ -32893,6 +32924,11 @@ MonoBehaviour:
   jumpCooldown: 0.2
   airMultiplier: 0.6
   isJumpReady: 1
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  holdCastRadius: 0.2
+  defaultHoldPos: {x: 0, y: 0, z: 0}
   playerHeight: 2
   allGroundLayers:
     serializedVersion: 2
@@ -32900,6 +32936,7 @@ MonoBehaviour:
   isGrounded: 0
   sphereCastRadius: 0.4
   orientation: {fileID: 991994605}
+  playerCamera: {fileID: 0}
 --- !u!4 &2095776731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6498941385433743211, guid: 0b1c470ece1bad042a4d0dcd9eb4b59e, type: 3}
