@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 914182347379949581}
   - component: {fileID: 4954060387583694639}
   - component: {fileID: 5710383196034136321}
-  m_Layer: 13
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9133910450222962107}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FloorTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
