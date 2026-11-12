@@ -60,6 +60,6 @@ public class EndMenuController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        //UnityEditor.EditorApplication.ExitPlaymode();
+        UnityEditor.EditorApplication.ExitPlaymode();
     }
 }
