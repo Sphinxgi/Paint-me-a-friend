@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class PauseMenuUI : MonoBehaviour
 {
@@ -57,6 +58,6 @@ public class PauseMenuUI : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.ExitPlaymode();
+        //UnityEditor.EditorApplication.ExitPlaymode();
     }
 }
