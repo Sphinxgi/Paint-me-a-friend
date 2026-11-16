@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7363695131342399396}
   - component: {fileID: 601214469296068388}
   - component: {fileID: 3649535995320320657}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7676108784873239581}
   - component: {fileID: 1146858106877731604}
   - component: {fileID: 5948530041360629891}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PaintPatch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
