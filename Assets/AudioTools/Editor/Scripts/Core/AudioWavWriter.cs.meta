@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 4e2c15029bc44a14dbb3342613d00ef3
+AssetOrigin:
+  serializedVersion: 1
+  productId: 356424
+  packageName: Audio Tools - Audio Clip Editor, Trimmer & Normalizer for Unity
+  packageVersion: 1.3.0
+  assetPath: Assets/AudioTools/Editor/Scripts/Core/AudioWavWriter.cs
+  uploadId: 1051666

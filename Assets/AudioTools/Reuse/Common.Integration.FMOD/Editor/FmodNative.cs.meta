@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: f8576919c7ae40c88306f8929953c8fa
+AssetOrigin:
+  serializedVersion: 1
+  productId: 356424
+  packageName: Audio Tools - Audio Clip Editor, Trimmer & Normalizer for Unity
+  packageVersion: 1.3.0
+  assetPath: Assets/AudioTools/Reuse/Common.Integration.FMOD/Editor/FmodNative.cs
+  uploadId: 1051666

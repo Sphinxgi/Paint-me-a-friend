@@ -1,0 +1,198 @@
+.common-preview-gallery {
+    flex-grow: 1;
+    min-height: 0;
+    min-width: 0;
+}
+
+.common-preview-gallery__toolbar {
+    height: auto;
+    min-height: 22px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.common-preview-gallery__toolbar-group {
+    min-height: 22px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.common-preview-gallery__toolbar-group--filters {
+    min-width: 210px;
+    flex-grow: 1;
+}
+
+.common-preview-gallery__toolbar-group--options {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.common-preview-gallery__search {
+    width: 240px;
+    min-width: 120px;
+    max-width: 320px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.common-preview-gallery__size-label {
+    -unity-text-align: middle-center;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.common-preview-gallery__size {
+    width: 100px;
+}
+
+.common-preview-gallery__grid {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.common-preview-gallery__cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 8px;
+}
+
+.common-preview-gallery-card {
+    max-width: 100%;
+    flex-shrink: 1;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: rgba(76, 76, 76, 0.42);
+    border-width: 2px;
+    border-color: rgba(130, 130, 130, 0.36);
+}
+
+.common-preview-gallery-card__preview {
+    background-color: rgb(15, 17, 20);
+}
+
+.common-preview-gallery-card__title {
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-top: 6px;
+}
+
+.common-preview-gallery-card__description {
+    white-space: normal;
+    -unity-text-align: upper-center;
+}
+
+.common-preview-gallery-card__badges {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    overflow: hidden;
+    min-width: 0;
+    margin-top: 4px;
+}
+
+.common-preview-gallery-card__badge {
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -unity-text-align: middle-center;
+    font-size: 10px;
+    height: 17px;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-width: 1px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+.common-preview-gallery-card__actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    flex-direction: row;
+    padding: 2px;
+    border-radius: 4px;
+    background-color: rgba(32, 32, 32, 0.88);
+    opacity: 0;
+}
+
+.common-preview-gallery-card:hover .common-preview-gallery-card__actions,
+.common-preview-gallery-card--actions-visible .common-preview-gallery-card__actions {
+    opacity: 1;
+}
+
+.common-preview-gallery-card__action {
+    width: 22px;
+    height: 20px;
+    margin: 0 1px;
+    padding: 2px;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.common-preview-gallery-card__action:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.common-preview-gallery-card__action:focus {
+    background-color: rgba(53, 119, 210, 0.45);
+}
+
+.common-preview-gallery-card__action Image {
+    width: 16px;
+    height: 16px;
+}
+
+.common-preview-gallery-card:hover {
+    background-color: rgba(94, 94, 94, 0.52);
+    border-color: rgba(170, 170, 170, 0.58);
+}
+
+.common-preview-gallery-card--selected,
+.common-preview-gallery-card--selected:hover,
+.common-preview-gallery-card:focus {
+    background-color: rgba(53, 119, 210, 0.20);
+    border-color: rgb(74, 144, 236);
+}
+
+.common-inspector-theme-light .common-preview-gallery-card {
+    background-color: rgba(0, 0, 0, 0.035);
+    border-color: rgba(70, 70, 70, 0.30);
+}
+
+.common-inspector-theme-light .common-preview-gallery-card:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+    border-color: rgba(55, 55, 55, 0.48);
+}
+
+.common-inspector-theme-light .common-preview-gallery-card--selected,
+.common-inspector-theme-light .common-preview-gallery-card--selected:hover,
+.common-inspector-theme-light .common-preview-gallery-card:focus {
+    background-color: rgba(42, 108, 200, 0.14);
+    border-color: rgb(42, 108, 200);
+}
+
+.common-inspector-theme-light .common-preview-gallery-card__badge {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.18);
+}
+
+.common-inspector-theme-light .common-preview-gallery-card__actions {
+    background-color: rgba(236, 236, 236, 0.94);
+}
+
+.common-inspector-theme-light .common-preview-gallery-card__action:hover {
+    background-color: rgba(0, 0, 0, 0.10);
+}
+
+.common-inspector-theme-light .common-preview-gallery-card__action:focus {
+    background-color: rgba(42, 108, 200, 0.30);
+}

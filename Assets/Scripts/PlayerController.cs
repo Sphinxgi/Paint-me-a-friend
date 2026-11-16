@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     public PlayerPaintEffects playerPaintEffects { get; private set; }
     [SerializeField] private Camera playerCamera;
 
+    [Header("Sound Settings")]
+    [SerializeField] private float footstepThreshold = 0.1f;
+
     float horizontalInput;
     float verticalInput;
 
@@ -98,6 +101,7 @@ public class PlayerController : MonoBehaviour
     {
         CheckBelow();
         MovePlayer();
+        HandleFootsteps();
     }
     private void LateUpdate()
     {
@@ -249,6 +253,7 @@ public class PlayerController : MonoBehaviour
             heldObject.PutDown();
             heldObject = null;
             isHoldingObject = false;
+            AudioManager.Instance.PlayDropSFX();
             return;
         }
 
@@ -264,6 +269,7 @@ public class PlayerController : MonoBehaviour
                 pickUpObject.PickUp();
                 heldObject = pickUpObject;
                 isHoldingObject = true;
+                AudioManager.Instance.PlayPickupSFX();
             }
         }
     }
@@ -291,6 +297,21 @@ public class PlayerController : MonoBehaviour
             QueryTriggerInteraction.Ignore))
         {
             holdParent.position = hit.point - direction * holdCastRadius;
+        }
+    }
+
+    private void HandleFootsteps()
+    {
+        Vector3 horizontalVelocity = Rb.linearVelocity;
+        horizontalVelocity.y = 0f;
+
+        if (horizontalVelocity.magnitude > footstepThreshold && isGrounded)
+        {
+            AudioManager.Instance.StartWalkingSFX();
+        }
+        else
+        {
+            AudioManager.Instance.StopWalkingSFX();
         }
     }
 }

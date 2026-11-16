@@ -36,6 +36,7 @@ public class PauseMenuUI : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        AudioManager.Instance.PlayPauseSFX();
     }
 
     public void ResumeGame()

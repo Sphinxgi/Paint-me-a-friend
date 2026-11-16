@@ -57,6 +57,7 @@ public class PaintBrush : MonoBehaviour
         {
             hasPainted = false;
             lastPaintCollider = null;
+            AudioManager.Instance.StopPaintingSFX();
         }
 
         if (Input.mouseScrollDelta.y > 0f)
@@ -123,6 +124,7 @@ public class PaintBrush : MonoBehaviour
 
             lastPaintPosition = hit.point;
         }
+        HandlePaintingSound();
     }
 
     private void CreatePaintPatch(
@@ -170,6 +172,7 @@ public class PaintBrush : MonoBehaviour
     {
         CurrentPaint = paintType;
         OnPaintColorChanged?.Invoke();
+        AudioManager.Instance.PlayColorSwitchSFX();
     }
 
     private void Erase()
@@ -334,5 +337,17 @@ public class PaintBrush : MonoBehaviour
         }
 
         paintPreviewMaterial.SetTexture("Base_Map", targetTexture);
+    }
+
+    private void HandlePaintingSound()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            AudioManager.Instance.StartPaintingSFX();
+        }
+        else
+        {
+            AudioManager.Instance.StopPaintingSFX();
+        }
     }
 }

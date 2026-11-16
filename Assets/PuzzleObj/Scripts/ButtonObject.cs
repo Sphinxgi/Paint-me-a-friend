@@ -58,11 +58,13 @@ public class ButtonObject : MonoBehaviour
     {
         doorIsColse = false;
         doorScript.Activate();
+        AudioManager.Instance.PlayPuzzleButtonPressSFX();
     }
 
     public void SignalOff()
     {
         doorIsColse = true;
         doorScript.DeActivate();
+        AudioManager.Instance.PlayPuzzleButtonPressSFX();
     }
 }

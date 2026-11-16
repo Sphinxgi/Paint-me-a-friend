@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
-    // Maybe put this in a Separate Singleton later?
     [Header("Scene Settings")]
     [SerializeField] private int newGameSceneNumber;
     [SerializeField] private int loadStageScene1Number;
@@ -66,6 +65,12 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private float extrasTransitionTime = 0.1f;
     private bool isExtrasOn = false;
     private bool isMainButtonsDisabled = false;
+    [Header("Options Menu")]
+    [SerializeField] private RectTransform optionsPanel;
+    [SerializeField] private Vector2 optionsOnPos;
+    [SerializeField] private Vector2 optionsOffPos;
+    [SerializeField] private float optionsTransitionTime = 0.1f;
+    private bool isOptionsOn = false;
 
     private void OnEnable()
     {
@@ -126,11 +131,14 @@ public class MainMenuUI : MonoBehaviour
 
         isExtrasOn = false;
         isLoadGameOn = false;
+        isOptionsOn = false;
         isMainButtonsDisabled = false;
         extrasPanel.localPosition = extrasOffPos;
         loadGamePanel.localPosition = loadGameOffPos;
+        optionsPanel.localPosition = optionsOffPos;
         isDimOn = false;
         dimImage.alpha = 0f;
+        AudioManager.Instance.PlayMainMenuAmbience();
     }
 
     void Update()
@@ -209,6 +217,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void OnButtonClick(Button button)
     {
+        AudioManager.Instance.PlayUIButtonSFX();
         switch (button.name)
         {
             case "NewGame_Button" when !isMainButtonsDisabled:
@@ -216,6 +225,7 @@ public class MainMenuUI : MonoBehaviour
                 DOTween.KillAll();
                 DOTween.Clear(true);
                 Debug.Log("Cleared DOTween");
+                AudioManager.Instance.StopAmbience();
                 SceneManager.LoadScene(newGameSceneNumber);
                 break;
             case "LoadGame_Button" when !isMainButtonsDisabled:
@@ -225,6 +235,7 @@ public class MainMenuUI : MonoBehaviour
                 break;
             case "Options_Button" when !isMainButtonsDisabled:
                 Debug.Log("Options button clicked");
+                ToggleOptionsMenu();
                 break;
             case "Extras_Button" when !isMainButtonsDisabled:
             case "Extras_Return_Button" when isExtrasOn:
@@ -294,6 +305,24 @@ public class MainMenuUI : MonoBehaviour
             isLoadGameOn = true;
             isMainButtonsDisabled = true;
             loadGamePanel.DOLocalMove(loadGameOnPos, loadGameTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+    }
+
+    public void ToggleOptionsMenu()
+    {
+        if (isOptionsOn)
+        {
+            isOptionsOn = false;
+            isMainButtonsDisabled = false;
+            optionsPanel.DOLocalMove(optionsOffPos, optionsTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+        else if (!isOptionsOn)
+        {
+            isOptionsOn = true;
+            isMainButtonsDisabled = true;
+            optionsPanel.DOLocalMove(optionsOnPos, optionsTransitionTime).SetEase(Ease.OutSine);
             ToggleDim();
         }
     }

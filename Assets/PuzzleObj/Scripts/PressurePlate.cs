@@ -22,10 +22,12 @@ public class PressurePlate : MonoBehaviour
     public void SignalOn()
     {
         doorScript.Activate();
+        AudioManager.Instance.PlayPressurePlateSFX();
     }
 
     public void SignalOff()
     {
         doorScript.DeActivate();
+        AudioManager.Instance.PlayPressurePlateSFX();
     }
 }

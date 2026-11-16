@@ -37,6 +37,7 @@ public class Door : MonoBehaviour
         startTime = Time.time;
         isOpening = true;
         isClosing = false;
+        AudioManager.Instance.PlayDoorOpenSFX();
     }
 
     public void DeActivate()
@@ -44,5 +45,6 @@ public class Door : MonoBehaviour
         startTime = Time.time;
         isClosing = true;
         isOpening = false;
+        AudioManager.Instance.PlayDoorCloseSFX();
     }
 }

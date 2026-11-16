@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: d5a322cef3aea7b4a8d83cac0ccc7d42
+AssetOrigin:
+  serializedVersion: 1
+  productId: 356424
+  packageName: Audio Tools - Audio Clip Editor, Trimmer & Normalizer for Unity
+  packageVersion: 1.3.0
+  assetPath: Assets/AudioTools/Editor/Scripts/Core/AudioBatchRunner.cs
+  uploadId: 1051666

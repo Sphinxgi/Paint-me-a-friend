@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 7726686ab94e3c1449f5c2b8141f954a
+AssetOrigin:
+  serializedVersion: 1
+  productId: 356424
+  packageName: Audio Tools - Audio Clip Editor, Trimmer & Normalizer for Unity
+  packageVersion: 1.3.0
+  assetPath: Assets/AudioTools/Editor/Scripts/Core/AudioSilenceDetector.cs
+  uploadId: 1051666

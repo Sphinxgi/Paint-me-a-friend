@@ -41,7 +41,8 @@ public class UIManager : MonoBehaviour
         playerPaintEffects = FindAnyObjectByType<PlayerPaintEffects>();
         paintBrush = FindAnyObjectByType<PaintBrush>();
         selectionIndicator.localScale = indicatorRectScale;
-        HideVignette();
+        blueVignette.SetActive(false);
+        greenVignette.SetActive(false);
         if (paintBrush != null)
         {
             paintBrush.OnPaintColorChanged += UpdateColorSelection;
@@ -96,12 +97,16 @@ public class UIManager : MonoBehaviour
     {
         if (paintType == PaintType.Blue)
         {
+            blueVignette.SetActive(true);
             TriggerAlphaChange(blueVignette, 1f);
+            greenVignette.SetActive(false);
             TriggerAlphaChange(greenVignette, 0f);
         }
         else if (paintType == PaintType.Green)
         {
+            blueVignette.SetActive(false);
             TriggerAlphaChange(blueVignette, 0f);
+            greenVignette.SetActive(true);
             TriggerAlphaChange(greenVignette, 1f);
         }
         Debug.Log("Vignette turned on for " + paintType.ToString());
