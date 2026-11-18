@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3082074754085551562}
   - component: {fileID: 6053614227586861500}
   - component: {fileID: 3833786366881700858}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4459494063370081509}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EndPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5794318020233684579}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,9 +192,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5794318020233684579}
     m_Modifications:
+    - target: {fileID: 1182966806698546428, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231078006203989797, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2794336302323873232, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
       propertyPath: m_Name
       value: Dark_Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794336302323873232, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2794336302323873232, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
       propertyPath: m_IsActive
@@ -253,6 +265,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1231078006203989797, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1647643810778971608}
+    - targetCorrespondingSourceObject: {fileID: 1231078006203989797, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2099445985991075159}
   m_SourcePrefab: {fileID: 100100000, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
 --- !u!4 &165354871911270225 stripped
 Transform:
@@ -281,6 +296,27 @@ MonoBehaviour:
   endPosObj: {fileID: 5558772306521928247}
   duration: 2
   startTime: 0
+--- !u!65 &2099445985991075159
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4526809418322220830}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.012461578, y: 0.0015, z: 0.02132013}
+  m_Center: {x: 0.00025789347, y: -0.000146241, z: 0.010668958}
 --- !u!4 &7465684179221283935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5214235942937013348, guid: 6e66894b4f43a4a45a4c333f1935b8df, type: 3}
