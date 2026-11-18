@@ -39,7 +39,8 @@ public class AudioManager : MonoBehaviour
 
     [Header("Ambience References")]
     public AudioClip darkAmbience;
-    public AudioClip lightAmbience;
+    public AudioClip lightAmbience1;
+    public AudioClip lightAmbience2;
     public AudioClip mainMenuAmbience;
 
 
@@ -72,16 +73,27 @@ public class AudioManager : MonoBehaviour
             }
             else if (scene.name == "Lv1")
             {
-                PlayAmbience(lightAmbience);
+                PlayAmbience(lightAmbience1);
             }
             else if (scene.name == "Lv2")
             {
-                if (ambienceAudioSource == lightAmbience)
+                if (ambienceAudioSource == lightAmbience1)
                     return;
                 else
-                    PlayAmbience(lightAmbience);
+                    PlayAmbience(lightAmbience1);
             }
             else if (scene.name == "Lv3")
+            {
+                    PlayAmbience(lightAmbience2);
+            }
+            else if (scene.name == "Lv4")
+            {
+                if (ambienceAudioSource == lightAmbience2)
+                    return;
+                else
+                    PlayAmbience(lightAmbience2);
+            }
+            else if (scene.name == "Lv5")
             {
                 PlayAmbience(darkAmbience);
             }

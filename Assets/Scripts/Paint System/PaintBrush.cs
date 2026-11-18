@@ -337,7 +337,7 @@ public class PaintBrush : MonoBehaviour
             }
         }
 
-        paintPreviewMaterial.SetTexture("Base_Map", targetTexture);
+        paintPreviewMaterial.SetTexture("_BaseMap", targetTexture);
     }
 
     private void HandlePaintingSound()

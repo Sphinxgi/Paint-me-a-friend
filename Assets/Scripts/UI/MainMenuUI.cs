@@ -10,6 +10,8 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private int loadStageScene1Number;
     [SerializeField] private int loadStageScene2Number;
     [SerializeField] private int loadStageScene3Number;
+    [SerializeField] private int loadStageScene4Number;
+    [SerializeField] private int loadStageScene5Number;
 
 
     [Header("Dim Settings")]
@@ -255,6 +257,12 @@ public class MainMenuUI : MonoBehaviour
                 break;
             case "LoadStage3_Button" when isLoadGameOn:
                 SceneManager.LoadScene(loadStageScene3Number);
+                break;
+            case "LoadStage4_Button" when isLoadGameOn:
+                SceneManager.LoadScene(loadStageScene4Number);
+                break;
+            case "LoadStage5_Button" when isLoadGameOn:
+                SceneManager.LoadScene(loadStageScene5Number);
                 break;
         }
     }
