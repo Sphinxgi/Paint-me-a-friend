@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask environmentLayer;
     [SerializeField] private float holdCastRadius = 0.2f;
     [SerializeField] private Vector3 defaultHoldPos;
+    public event Action OnPickUpObject;
+    public event Action OnDropObject;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -103,6 +105,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         HandleFootsteps();
     }
+
     private void LateUpdate()
     {
         UpdateHoldPosition();
@@ -248,19 +251,27 @@ public class PlayerController : MonoBehaviour
 
     private void HandlePickUp()
     {
-        if (isHoldingObject && Input.GetKeyDown(KeyCode.E))
+        if (isHoldingObject)
         {
-            heldObject.PutDown();
-            heldObject = null;
-            isHoldingObject = false;
-            AudioManager.Instance.PlayDropSFX();
-            return;
+            SetHeadsUpText("Press E to put down");
+            if (Input.GetKeyDown(KeyCode.E))
+            {   
+                heldObject.PutDown();
+                heldObject = null;
+                isHoldingObject = false;
+                AudioManager.Instance.PlayDropSFX();
+                OnDropObject?.Invoke();
+                return;
+            }
         }
 
         if (Physics.Raycast(generalRay, out RaycastHit hit, generalRaycastDistance))
         {
             PickUpObject pickUpObject = hit.collider.GetComponent<PickUpObject>();
-
+            if (pickUpObject != null)
+            {
+                SetHeadsUpText("Press E to pick up");
+            }
             if (pickUpObject != null &&
                 Input.GetKeyDown(KeyCode.E) &&
                 !pickUpObject.isBeingHeld &&
@@ -270,7 +281,12 @@ public class PlayerController : MonoBehaviour
                 heldObject = pickUpObject;
                 isHoldingObject = true;
                 AudioManager.Instance.PlayPickupSFX();
+                OnPickUpObject?.Invoke();
             }
+        }
+        else if (!isHoldingObject)
+        {
+            HideHeadsUpText();
         }
     }
 
@@ -313,5 +329,15 @@ public class PlayerController : MonoBehaviour
         {
             AudioManager.Instance.StopWalkingSFX();
         }
+    }
+
+    private void SetHeadsUpText(string message)
+    {
+        UIManager.Instance.ShowHeadsUpText(message);
+    }
+
+    private void HideHeadsUpText()
+    {
+        UIManager.Instance.HideHeadsUpText();
     }
 }

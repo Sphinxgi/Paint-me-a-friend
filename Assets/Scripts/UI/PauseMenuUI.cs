@@ -13,6 +13,7 @@ public class PauseMenuUI : MonoBehaviour
     {
         ResumeGame();
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -37,6 +38,8 @@ public class PauseMenuUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         AudioManager.Instance.PlayPauseSFX();
+
+        AudioListener.pause = true;
     }
 
     public void ResumeGame()
@@ -47,6 +50,8 @@ public class PauseMenuUI : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        AudioListener.pause = false;
     }
 
     public void GotoMainMenu()

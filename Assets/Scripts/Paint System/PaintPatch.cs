@@ -9,6 +9,8 @@ public class PaintPatch : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Material bluePaintMaterial;
     [SerializeField] private Material greenPaintMaterial;
+    [SerializeField] private ParticleSystem paintParticle;
+    private ParticleSystemRenderer particleSystemRenderer;
 
     public void Initialize(
         PaintType paintType,
@@ -19,6 +21,9 @@ public class PaintPatch : MonoBehaviour
         lifetime = duration;
         surface = surfaceCollider;
         meshRenderer.material = paintType == PaintType.Blue ? bluePaintMaterial : greenPaintMaterial;
+        particleSystemRenderer = paintParticle.GetComponent<ParticleSystemRenderer>();
+        particleSystemRenderer.material = paintType == PaintType.Blue ? bluePaintMaterial : greenPaintMaterial;
+        PlayPaintParticle();
     }
 
     public bool BelongsToSurface(Collider collider)
@@ -33,6 +38,14 @@ public class PaintPatch : MonoBehaviour
         if (lifetime <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void PlayPaintParticle()
+    {
+        if (paintParticle != null)
+        {
+            paintParticle.Play();
         }
     }
 }

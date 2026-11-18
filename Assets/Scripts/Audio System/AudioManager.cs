@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public enum VolumeSettings { Master, Music, SFX, Ambience }
 
@@ -41,6 +42,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip lightAmbience;
     public AudioClip mainMenuAmbience;
 
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -54,12 +56,47 @@ public class AudioManager : MonoBehaviour
 
         SetupFootstepsSource();
         SetupPaintingSource();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AudioListener.pause = false;
+        StopWalkingSFX();
+        StopPaintingSFX();
+        if (ambienceAudioSource != null)
+        {
+            if (scene.name == "MainMenu")
+            {
+                PlayAmbience(mainMenuAmbience);
+            }
+            else if (scene.name == "Lv1")
+            {
+                PlayAmbience(lightAmbience);
+            }
+            else if (scene.name == "Lv2")
+            {
+                if (ambienceAudioSource == lightAmbience)
+                    return;
+                else
+                    PlayAmbience(lightAmbience);
+            }
+            else if (scene.name == "Lv3")
+            {
+                PlayAmbience(darkAmbience);
+            }
+            else
+            {
+                StopAmbience();
+            }
+        }
     }
 
     private void OnDestroy()
     {
         if (Instance == this)
             Instance = null;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void SetupFootstepsSource()

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,10 +19,14 @@ public class levelEndTrigger : MonoBehaviour
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             // Load the next scene
+            AudioListener.pause = true;
+            DOTween.Clear();
             SceneManager.LoadScene(nextSceneIndex);
         }
         else
         {
+            AudioListener.pause = true;
+            DOTween.Clear();
             EndMenuController.Instance.EndTheGame();
         }
     }

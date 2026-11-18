@@ -35,7 +35,8 @@ public class PaintBrush : MonoBehaviour
 
     private void Start()
     {
-        ChangeCurrentPaint(PaintType.Blue);
+        CurrentPaint = PaintType.Blue;
+        OnPaintColorChanged?.Invoke();
     }
 
     private void Update()
