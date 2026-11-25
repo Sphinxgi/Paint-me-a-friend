@@ -64,8 +64,12 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private RectTransform extrasPanel;
     [SerializeField] private Vector2 extrasOnPos;
     [SerializeField] private Vector2 extrasOffPos;
+    [SerializeField] private RectTransform extrasConceptArtPanel;
+    [SerializeField] private Vector2 extrasConceptArtOnPos;
+    [SerializeField] private Vector2 extrasConceptArtOffPos;
     [SerializeField] private float extrasTransitionTime = 0.1f;
     private bool isExtrasOn = false;
+    private bool isExtrasConceptArtOn = false;
     private bool isMainButtonsDisabled = false;
     [Header("Options Menu")]
     [SerializeField] private RectTransform optionsPanel;
@@ -185,6 +189,7 @@ public class MainMenuUI : MonoBehaviour
             if (isExtrasOn)
             {
                 ToggleExtrasMenu();
+                CloseExtrasConceptArtMenu();
             }
             else if (isLoadGameOn)
             {
@@ -243,6 +248,11 @@ public class MainMenuUI : MonoBehaviour
             case "Extras_Return_Button" when isExtrasOn:
                 Debug.Log("Extras button clicked");
                 ToggleExtrasMenu();
+                CloseExtrasConceptArtMenu();
+                break;
+            case "Extras_ConceptArt_Button" when isExtrasOn:
+                Debug.Log("Extras Concept Art button clicked");
+                ToggleExtrasConceptArtMenu();
                 break;
             case "QuitGame_Button" when !isMainButtonsDisabled:
                 Debug.Log("Quit Game button clicked");
@@ -281,6 +291,33 @@ public class MainMenuUI : MonoBehaviour
             isExtrasOn = true;
             isMainButtonsDisabled = true;
             extrasPanel.DOLocalMove(extrasOnPos, extrasTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+    }
+    private void ToggleExtrasConceptArtMenu()
+    {
+        if (isExtrasConceptArtOn)
+        {
+            isExtrasConceptArtOn = false;
+            isMainButtonsDisabled = false;
+            extrasConceptArtPanel.DOLocalMove(extrasConceptArtOffPos, extrasTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+        else if (!isExtrasConceptArtOn)
+        {
+            isExtrasConceptArtOn = true;
+            isMainButtonsDisabled = true;
+            extrasConceptArtPanel.DOLocalMove(extrasConceptArtOnPos, extrasTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+    }
+    private void CloseExtrasConceptArtMenu()
+    {
+        if (isExtrasConceptArtOn)
+        {
+            isExtrasConceptArtOn = false;
+            isMainButtonsDisabled = false;
+            extrasConceptArtPanel.DOLocalMove(extrasConceptArtOffPos, extrasTransitionTime).SetEase(Ease.OutSine);
             ToggleDim();
         }
     }
