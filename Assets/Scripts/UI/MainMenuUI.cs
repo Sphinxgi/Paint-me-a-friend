@@ -67,9 +67,13 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private RectTransform extrasConceptArtPanel;
     [SerializeField] private Vector2 extrasConceptArtOnPos;
     [SerializeField] private Vector2 extrasConceptArtOffPos;
+    [SerializeField] private RectTransform extrasCreditPanel;
+    [SerializeField] private Vector2 extrasCreditOnPos;
+    [SerializeField] private Vector2 extrasCreditOffPos;
     [SerializeField] private float extrasTransitionTime = 0.1f;
     private bool isExtrasOn = false;
     private bool isExtrasConceptArtOn = false;
+    private bool isExtrasCreditOn = false;
     private bool isMainButtonsDisabled = false;
     [Header("Options Menu")]
     [SerializeField] private RectTransform optionsPanel;
@@ -190,6 +194,7 @@ public class MainMenuUI : MonoBehaviour
             {
                 ToggleExtrasMenu();
                 CloseExtrasConceptArtMenu();
+                CloseExtrasCreditMenu();
             }
             else if (isLoadGameOn)
             {
@@ -249,10 +254,15 @@ public class MainMenuUI : MonoBehaviour
                 Debug.Log("Extras button clicked");
                 ToggleExtrasMenu();
                 CloseExtrasConceptArtMenu();
+                CloseExtrasCreditMenu();
                 break;
             case "Extras_ConceptArt_Button" when isExtrasOn:
                 Debug.Log("Extras Concept Art button clicked");
                 ToggleExtrasConceptArtMenu();
+                break;
+            case "Extras_Credits_Button" when isExtrasOn:
+                Debug.Log("Extras Credit button clicked");
+                ToggleExtrasCreditMenu();
                 break;
             case "QuitGame_Button" when !isMainButtonsDisabled:
                 Debug.Log("Quit Game button clicked");
@@ -318,6 +328,33 @@ public class MainMenuUI : MonoBehaviour
             isExtrasConceptArtOn = false;
             isMainButtonsDisabled = false;
             extrasConceptArtPanel.DOLocalMove(extrasConceptArtOffPos, extrasTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+    }
+    private void ToggleExtrasCreditMenu()
+    {
+        if (isExtrasCreditOn)
+        {
+            isExtrasCreditOn = false;
+            isMainButtonsDisabled = false;
+            extrasCreditPanel.DOLocalMove(extrasCreditOffPos, extrasTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+        else if (!isExtrasCreditOn)
+        {
+            isExtrasCreditOn = true;
+            isMainButtonsDisabled = true;
+            extrasCreditPanel.DOLocalMove(extrasCreditOnPos, extrasTransitionTime).SetEase(Ease.OutSine);
+            ToggleDim();
+        }
+    }
+    private void CloseExtrasCreditMenu()
+    {
+        if (isExtrasCreditOn)
+        {
+            isExtrasCreditOn = false;
+            isMainButtonsDisabled = false;
+            extrasCreditPanel.DOLocalMove(extrasCreditOffPos, extrasTransitionTime).SetEase(Ease.OutSine);
             ToggleDim();
         }
     }
