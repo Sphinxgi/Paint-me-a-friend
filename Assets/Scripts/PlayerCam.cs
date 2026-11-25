@@ -14,13 +14,20 @@ public class PlayerCam : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        xRotation = 90f;
+        xRotation = 0f;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        float sensitivity = SettingsManager.Instance != null
+            ? SettingsManager.Instance.MouseSensitivity
+            : 1f;
+
+        float mouseX = Input.GetAxisRaw("Mouse X")
+            * Time.deltaTime * sensX * sensitivity;
+
+        float mouseY = Input.GetAxisRaw("Mouse Y")
+            * Time.deltaTime * sensY * sensitivity;
 
         yRotation += mouseX;
         xRotation -= mouseY;

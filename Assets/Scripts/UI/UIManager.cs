@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Tween[] VignetteAnims;
     [Header("Heads Up Text")]
     [SerializeField] private TextMeshProUGUI headsUpText;
+    public bool isHeadsUpInUse;
 
     private void OnEnable()
     {
@@ -75,6 +76,7 @@ public class UIManager : MonoBehaviour
             pc.OnDropObject += OnDropObject;
         }
         HideHeadsUpText();
+        isHeadsUpInUse = false;
         ChangeBrushHandColor(PaintType.Blue);
     }
 
@@ -183,11 +185,13 @@ public class UIManager : MonoBehaviour
     {
         headsUpText.text = message;
         headsUpText.gameObject.SetActive(true);
+        isHeadsUpInUse = true;
     }
 
     public void HideHeadsUpText()
     {
         headsUpText.gameObject.SetActive(false);
+        isHeadsUpInUse = false;
     }
 
     private void ChangeBrushHandColor(PaintType color)

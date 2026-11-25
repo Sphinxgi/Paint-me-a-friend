@@ -1,81 +1,87 @@
+
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PressurePlate : MonoBehaviour
 {
     [SerializeField] private Transform door;
+
     private Door doorScript;
-    private readonly Collider[] hits = new Collider[5];
-    private BoxCollider box;
-    private bool wasEmpty = true;
-    private int excludedMask;
+
+    private HashSet<GameObject> objectsOnPlate = new HashSet<GameObject>();
+
+    private bool isSignalOn;
 
     private void Start()
     {
-        if (door != null) doorScript = door.GetComponentInChildren<Door>();
-        excludedMask = LayerMask.GetMask("BluePaint");
-    }
-    
+        if (door != null)
+            doorScript = door.GetComponentInChildren<Door>();
 
-    private void Awake() => box = GetComponent<BoxCollider>();
-
-    private void FixedUpdate()
-    {
-        int count = Physics.OverlapBoxNonAlloc(
-            box.transform.TransformPoint(box.center),
-            Vector3.Scale(box.size, box.transform.lossyScale) * 0.5f,
-            hits,
-            box.transform.rotation,
-            ~excludedMask,
-            QueryTriggerInteraction.Collide);
-
-        int others = 1;
-        for (int i = 0; i < count; i++)
-        {
-            if (hits[i] == box) continue;
-            if (hits[i].transform.IsChildOf(transform)) continue;
-            others++;
-            WhileInside(hits[i]);              
-        }
-
-        bool isEmpty = others == 1;
-
-        if (isEmpty && !wasEmpty)
-            OnZoneEmpty();
-
-        wasEmpty = isEmpty;
+        isSignalOn = false;
     }
 
-    private void WhileInside(Collider target)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{target.name} is inside");
-        SignalOn();
+        GameObject occupant = GetOccupant(other);
+
+        if (occupant != null)
+            AddObject(occupant);
     }
 
-    private void OnZoneEmpty()
+    private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Nothing inside the trigger");
-        SignalOff();
-    }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    SignalOn();
-    //}
+        GameObject occupant = GetOccupant(other);
 
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    SignalOff();
-    //}
-    
-
-    public void SignalOn()
-    {
-        doorScript.Activate();
-        AudioManager.Instance.PlayPressurePlateSFX();
+        if (occupant != null)
+            RemoveObject(occupant);
     }
 
-    public void SignalOff()
+    private GameObject GetOccupant(Collider other)
     {
-        doorScript.DeActivate();
-        AudioManager.Instance.PlayPressurePlateSFX();
+        // Check whether the collider belongs to the player.
+        PlayerController player = other.GetComponentInParent<PlayerController>();
+
+        if (player != null)
+            return player.gameObject;
+
+        // Check whether the collider belongs to a pickup object.
+        PickUpObject pickup = other.GetComponentInParent<PickUpObject>();
+
+        if (pickup != null && !pickup.isBeingHeld)
+            return pickup.gameObject;
+
+        return null;
+    }
+
+    public void AddObject(GameObject obj)
+    {
+        if (obj == null) return;
+
+        if (objectsOnPlate.Add(obj))
+            UpdatePlateState();
+    }
+
+    public void RemoveObject(GameObject obj)
+    {
+        if (obj == null) return;
+
+        if (objectsOnPlate.Remove(obj))
+            UpdatePlateState();
+    }
+
+    private void UpdatePlateState()
+    {
+        bool shouldBeActive = objectsOnPlate.Count > 0;
+
+        if (shouldBeActive == isSignalOn) return;
+
+        isSignalOn = shouldBeActive;
+
+        if (doorScript == null) return;
+
+        if (isSignalOn)
+            doorScript.Activate();
+        else
+            doorScript.DeActivate();
     }
 }

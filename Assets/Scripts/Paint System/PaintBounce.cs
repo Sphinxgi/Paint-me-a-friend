@@ -17,6 +17,8 @@ public class PaintBounce : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("PaintBounce triggered by: " + other.name);
+
         PaintPatch patch = other.GetComponent<PaintPatch>();
 
         if (patch == null)

@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System.Collections;
 
@@ -5,20 +6,34 @@ public class PickUpObject : MonoBehaviour
 {
     private Rigidbody rb;
     private PaintBounce paintBounce;
+
     public bool isBeingHeld { get; private set; }
+
     private Collider[] playerColliders;
     private Collider[] objectColliders;
+
     private int[] originalLayers;
+
     private Coroutine collisionResetRoutine;
+
+    private PressurePlate currentPressurePlate;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         paintBounce = GetComponent<PaintBounce>();
-        playerColliders = PlayerController.Instance.GetComponentsInChildren<Collider>();
+
+        if (PlayerController.Instance != null)
+        {
+            playerColliders = PlayerController.Instance
+                .GetComponentsInChildren<Collider>();
+        }
+
         objectColliders = GetComponentsInChildren<Collider>();
-        originalLayers = new int[gameObject.GetComponentsInChildren<Transform>().Length];
+
         Transform[] childTransforms = GetComponentsInChildren<Transform>();
+
+        originalLayers = new int[childTransforms.Length];
 
         for (int i = 0; i < childTransforms.Length; i++)
         {
@@ -26,38 +41,65 @@ public class PickUpObject : MonoBehaviour
         }
 
         isBeingHeld = false;
+
         TurnOnPhysics();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        PressurePlate plate = other.GetComponent<PressurePlate>();
+
+        if (plate != null && !isBeingHeld)
+        {
+            currentPressurePlate = plate;
+            plate.AddObject(gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        PressurePlate plate = other.GetComponent<PressurePlate>();
+
+        if (plate != null && currentPressurePlate == plate)
+        {
+            plate.RemoveObject(gameObject);
+            currentPressurePlate = null;
+        }
     }
 
     private void TurnOffPhysics()
     {
         if (paintBounce != null)
-        {
             paintBounce.enabled = false;
-        }
+
         rb.isKinematic = true;
+
         foreach (Collider col in objectColliders)
-        {
             col.enabled = false;
-        }
     }
 
     private void TurnOnPhysics()
     {
         if (paintBounce != null)
-        {
             paintBounce.enabled = true;
-        }
+
         rb.isKinematic = false;
+
         foreach (Collider col in objectColliders)
-        {
             col.enabled = true;
-        }
     }
 
     public void PickUp()
     {
+        if (isBeingHeld) return;
+
         isBeingHeld = true;
+
+        if (currentPressurePlate != null)
+        {
+            currentPressurePlate.RemoveObject(gameObject);
+            currentPressurePlate = null;
+        }
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -76,13 +118,15 @@ public class PickUpObject : MonoBehaviour
 
     public void PutDown()
     {
+        if (!isBeingHeld) return;
+
         isBeingHeld = false;
 
         transform.SetParent(null, true);
 
         RestoreOriginalLayers();
 
-        TurnOnPhysics(); 
+        TurnOnPhysics();
 
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -99,19 +143,23 @@ public class PickUpObject : MonoBehaviour
         {
             bool overlapping = false;
 
-            foreach (Collider playerCol in playerColliders)
+            if (playerColliders != null)
             {
-                foreach (Collider objectCol in objectColliders)
+                foreach (Collider playerCol in playerColliders)
                 {
-                    if (playerCol != null && objectCol != null &&
-                        playerCol.bounds.Intersects(objectCol.bounds))
+                    foreach (Collider objectCol in objectColliders)
                     {
-                        overlapping = true;
-                        break;
+                        if (playerCol != null &&
+                            objectCol != null &&
+                            playerCol.bounds.Intersects(objectCol.bounds))
+                        {
+                            overlapping = true;
+                            break;
+                        }
                     }
-                }
 
-                if (overlapping) break;
+                    if (overlapping) break;
+                }
             }
 
             if (!overlapping) break;
@@ -120,24 +168,26 @@ public class PickUpObject : MonoBehaviour
         }
 
         IgnorePlayerCollision(false);
+
         collisionResetRoutine = null;
     }
 
     private void SetObjectLayer(int layer)
     {
         foreach (Transform child in GetComponentsInChildren<Transform>())
-        {
             child.gameObject.layer = layer;
-        }
     }
 
     private void IgnorePlayerCollision(bool ignore)
     {
+        if (playerColliders == null) return;
+
         foreach (Collider playerCol in playerColliders)
         {
             foreach (Collider objectCol in objectColliders)
             {
-                Physics.IgnoreCollision(playerCol, objectCol, ignore);
+                if (playerCol != null && objectCol != null)
+                    Physics.IgnoreCollision(playerCol, objectCol, ignore);
             }
         }
     }
@@ -147,8 +197,6 @@ public class PickUpObject : MonoBehaviour
         Transform[] childTransforms = GetComponentsInChildren<Transform>();
 
         for (int i = 0; i < childTransforms.Length; i++)
-        {
             childTransforms[i].gameObject.layer = originalLayers[i];
-        }
     }
 }

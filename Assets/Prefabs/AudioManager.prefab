@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5946655655034835241}
   - component: {fileID: 7924408858494123436}
   - component: {fileID: 9078163831552440679}
+  - component: {fileID: 8918001450641969406}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -69,8 +70,13 @@ MonoBehaviour:
   pauseSFX: {fileID: 8300000, guid: 956e2b44095509b4bbb0d2fff5e29fe9, type: 3}
   uiButtonPressSFX: {fileID: 8300000, guid: a37d2446fdd1d4748ba353e92751a313, type: 3}
   darkAmbience: {fileID: 8300000, guid: b29577fa9d8dfad4bb0e9b4cf2b0c218, type: 3}
-  lightAmbience: {fileID: 8300000, guid: da644d2665aa4624495d15736e56edca, type: 3}
+  lightAmbience1: {fileID: 8300000, guid: da644d2665aa4624495d15736e56edca, type: 3}
+  lightAmbience2: {fileID: 8300000, guid: e834d372ed443e243a35cfb605c5e8f7, type: 3}
   mainMenuAmbience: {fileID: 8300000, guid: d4246e827dd0ae340a15ac6894bbd1c8, type: 3}
+  masterSlider: {fileID: 0}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+  ambienceSlider: {fileID: 0}
 --- !u!82 &5946655655034835241
 AudioSource:
   m_ObjectHideFlags: 0
@@ -362,3 +368,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8918001450641969406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7737890865086371355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ae89c0dbab16e41a4b84eeb827e840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 5a44ff330af262e4cb6f077d915911aa, type: 2}
+  defaultSensitivity: 1

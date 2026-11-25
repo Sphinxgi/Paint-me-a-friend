@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
         generalRay = playerCamera.ScreenPointToRay(Input.mousePosition);
         HandleInputs();
         HandlePickUp();
+        HandlePuzzleHeadsUp();
 
         //Limits Max Speed and such
         AdjustMaxSpeed();
@@ -187,7 +188,7 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         Rb.linearVelocity = new Vector3(Rb.linearVelocity.x, 0f, Rb.linearVelocity.z);
-        Rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        Rb.AddForce(transform.up * jumpForce * playerPaintEffects.JumpMultiplier, ForceMode.Impulse);
     }
 
     private void RefreshJumpCooldown()
@@ -212,7 +213,7 @@ public class PlayerController : MonoBehaviour
                         // Invoke Once
                         if (!IsOnBluePaint)
                         {
-                            OnGetOnBluePaint.Invoke();
+                            OnGetOnBluePaint?.Invoke();
                             Debug.Log("Player is on blue paint, invoking OnGetOnBluePaint event.");
                         }
                         IsOnBluePaint = true;
@@ -222,7 +223,7 @@ public class PlayerController : MonoBehaviour
                         // Invoke Once
                         if (!IsOnGreenPaint)
                         {
-                            OnGetOnGreenPaint.Invoke();
+                            OnGetOnGreenPaint?.Invoke();
                             Debug.Log("Player is on green paint, invoking OnGetOnGreenPaint event.");
                         }
                         IsOnGreenPaint = true;
@@ -240,7 +241,7 @@ public class PlayerController : MonoBehaviour
                 // Invoke Once
                 if (IsOnBluePaint || IsOnGreenPaint)
                 {
-                    OnGetOffPaint.Invoke();
+                    OnGetOffPaint?.Invoke();
                     Debug.Log("Player is off paint, invoking OnGetOffPaint event.");
                 }
                 IsOnBluePaint = false;
@@ -261,6 +262,11 @@ public class PlayerController : MonoBehaviour
                 isHoldingObject = false;
                 AudioManager.Instance.PlayDropSFX();
                 OnDropObject?.Invoke();
+                UIManager.Instance.isHeadsUpInUse = false;
+                if (!isHoldingObject)
+                {
+                    HideHeadsUpText();
+                }
                 return;
             }
         }
@@ -339,5 +345,21 @@ public class PlayerController : MonoBehaviour
     private void HideHeadsUpText()
     {
         UIManager.Instance.HideHeadsUpText();
+    }
+
+    private void HandlePuzzleHeadsUp()
+    {
+        if (Physics.Raycast(generalRay, out RaycastHit hit, 0.4f))
+        {
+            ButtonObject buttonObject = hit.collider.GetComponent<ButtonObject>();
+            if (buttonObject != null)
+            {
+                SetHeadsUpText("Press E to press button");
+            }
+        }
+        if (!UIManager.Instance.isHeadsUpInUse)
+        {
+            HideHeadsUpText();
+        }
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum VolumeSettings { Master, Music, SFX, Ambience }
 
@@ -43,6 +44,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip lightAmbience2;
     public AudioClip mainMenuAmbience;
 
+    [Header("Volume Sliders")]
+    [SerializeField] private Slider masterSlider;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
+    [SerializeField] private Slider ambienceSlider;
 
     private void Awake()
     {
@@ -57,6 +63,7 @@ public class AudioManager : MonoBehaviour
 
         SetupFootstepsSource();
         SetupPaintingSource();
+        LoadAudioSettings();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -65,6 +72,7 @@ public class AudioManager : MonoBehaviour
         AudioListener.pause = false;
         StopWalkingSFX();
         StopPaintingSFX();
+        UpdateVolumeSliders();
         if (ambienceAudioSource != null)
         {
             if (scene.name == "MainMenu")
@@ -109,6 +117,57 @@ public class AudioManager : MonoBehaviour
         if (Instance == this)
             Instance = null;
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void UpdateVolumeSliders()
+    {
+        Slider[] sliders = FindObjectsByType<Slider>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None
+        );
+
+        foreach (Slider slider in sliders)
+        {
+            switch (slider.name)
+            {
+                case "MasterSlider":
+                    slider.SetValueWithoutNotify(
+                        PlayerPrefs.GetFloat("MasterVol", 1f));
+                    break;
+
+                case "MusicSlider":
+                    slider.SetValueWithoutNotify(
+                        PlayerPrefs.GetFloat("MusicVol", 1f));
+                    break;
+
+                case "SFXSlider":
+                    slider.SetValueWithoutNotify(
+                        PlayerPrefs.GetFloat("SFXVol", 1f));
+                    break;
+                case "AmbienceSlider":
+                    slider.SetValueWithoutNotify(
+                        PlayerPrefs.GetFloat("AmbienceVol", 1f));
+                    break;
+            }
+        }
+    }
+
+    private void LoadAudioSettings()
+    {
+        float master = PlayerPrefs.GetFloat("MasterVol", 1f);
+        float music = PlayerPrefs.GetFloat("MusicVol", 1f);
+        float sfx = PlayerPrefs.GetFloat("SFXVol", 1f);
+        float ambience = PlayerPrefs.GetFloat("AmbienceVol", 1f);
+
+        masterSlider.SetValueWithoutNotify(master);
+        musicSlider.SetValueWithoutNotify(music);
+        sfxSlider.SetValueWithoutNotify(sfx);
+        ambienceSlider.SetValueWithoutNotify(ambience);
+
+        SetMasterVolume(master);
+        SetMusicVolume(music);
+        SetSFXVolume(sfx);
+        SetAmbienceVolume(ambience);
     }
 
     private void SetupFootstepsSource()

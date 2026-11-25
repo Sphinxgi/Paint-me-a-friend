@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 9182594070876618246}
   - component: {fileID: 8353850968413157094}
   - component: {fileID: 8087860762887610316}
-  - component: {fileID: 8533935968928617592}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: PressurePlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,22 +62,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5754021024254737903}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b47691f15b838f488576059e83623c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  door: {fileID: 0}
---- !u!114 &8533935968928617592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5754021024254737903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2308d9b8f8e497c46a58430526866f91, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b47691f15b838f488576059e83623c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
@@ -104,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8445541921634605474, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9115082292048626456, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
       propertyPath: m_LocalPosition.x
