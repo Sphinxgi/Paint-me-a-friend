@@ -1294,6 +1294,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_RedDoor (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1313,7 +1317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 147288356}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Dark_RedDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1352,6 +1356,10 @@ PrefabInstance:
     - target: {fileID: 6028459206614676069, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
       propertyPath: m_Name
       value: Dark_Chair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028459206614676069, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6404878543444191455, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5237,6 +5245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_Chair (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6028459206614676069, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6404878543444191455, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0870285
@@ -6544,6 +6556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_RedDoor (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7289,6 +7305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_Cabinet (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 436708779254396622, guid: 9f094cd5a321fed48bd4edecd24e7b15, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 955978075771825268, guid: 9f094cd5a321fed48bd4edecd24e7b15, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.077097
@@ -7970,6 +7990,10 @@ PrefabInstance:
     - target: {fileID: 5698033822667056312, guid: d5ecff056efb039439099ea11c043ad0, type: 3}
       propertyPath: m_Name
       value: Dark_PlantPot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698033822667056312, guid: d5ecff056efb039439099ea11c043ad0, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10656,6 +10680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_Cabinet
       objectReference: {fileID: 0}
+    - target: {fileID: 436708779254396622, guid: 9f094cd5a321fed48bd4edecd24e7b15, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 955978075771825268, guid: 9f094cd5a321fed48bd4edecd24e7b15, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.299677
@@ -11929,6 +11957,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_Desk
       objectReference: {fileID: 0}
+    - target: {fileID: 5567065049845517789, guid: 5e9c9e4f204500a4d8d103d8e7c6e77b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13192,6 +13224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark__Partition (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9010687743706665903, guid: e4712f9a103a0f44dafafd5632c72474, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13319,6 +13355,10 @@ PrefabInstance:
     - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
       propertyPath: m_Name
       value: Dark_RedDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13915,6 +13955,10 @@ PrefabInstance:
     - target: {fileID: 6028459206614676069, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
       propertyPath: m_Name
       value: Dark_Chair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028459206614676069, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6404878543444191455, guid: 492e296b561093d48a05bd21d4132f59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15608,7 +15652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1628040015}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Dark__Partition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16135,7 +16179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1698737833}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Decoration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16279,6 +16323,10 @@ PrefabInstance:
     - target: {fileID: 9010687743706665903, guid: e4712f9a103a0f44dafafd5632c72474, type: 3}
       propertyPath: m_Name
       value: Dark__Partition
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010687743706665903, guid: e4712f9a103a0f44dafafd5632c72474, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17707,6 +17755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_RedDoor (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17835,6 +17887,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dark_RedDoor (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17891,6 +17947,10 @@ PrefabInstance:
     - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
       propertyPath: m_Name
       value: Dark_RedDoor (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165108268581091624, guid: 352df72cbdc6a9c449e910c3551fd964, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
