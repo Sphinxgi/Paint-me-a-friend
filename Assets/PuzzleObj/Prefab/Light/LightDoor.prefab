@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3082074754085551562}
   - component: {fileID: 6053614227586861500}
   - component: {fileID: 3833786366881700858}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4459494063370081509}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: EndPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5794318020233684579}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: LightDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,6 +196,10 @@ PrefabInstance:
     - target: {fileID: 4438955261848888113, guid: f0b4439e9ea130d44b73dbd93a2a25bc, type: 3}
       propertyPath: m_Name
       value: Door_Aura
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438955261848888113, guid: f0b4439e9ea130d44b73dbd93a2a25bc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4907291338040951777, guid: f0b4439e9ea130d44b73dbd93a2a25bc, type: 3}
       propertyPath: m_Color.g
@@ -273,11 +277,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3107566260514742867, guid: 0cd47fe353f089f47867ba1d3f3b5f27, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3138928148354324825, guid: 0cd47fe353f089f47867ba1d3f3b5f27, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7323052745425045283, guid: 0cd47fe353f089f47867ba1d3f3b5f27, type: 3}
       propertyPath: m_Name
@@ -285,7 +289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7323052745425045283, guid: 0cd47fe353f089f47867ba1d3f3b5f27, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7992593017061121433, guid: 0cd47fe353f089f47867ba1d3f3b5f27, type: 3}
       propertyPath: m_LocalPosition.x

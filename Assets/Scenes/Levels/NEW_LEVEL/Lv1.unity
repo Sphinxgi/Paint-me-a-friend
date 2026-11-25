@@ -13808,6 +13808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blueSpeedMultiplier: 1.6
+  greenJumpMultiplier: 1.5
 --- !u!114 &1464932108
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -61,12 +61,12 @@ public class PaintBrush : MonoBehaviour
             AudioManager.Instance.StopPaintingSFX();
         }
 
-        if (Input.mouseScrollDelta.y > 0f)
+        if (Input.mouseScrollDelta.y > 0f || Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (CurrentPaint == PaintType.Blue) return;
             ChangeCurrentPaint(PaintType.Blue);
         }
-        else if (Input.mouseScrollDelta.y < 0f)
+        else if (Input.mouseScrollDelta.y < 0f || Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (CurrentPaint == PaintType.Green) return;
             ChangeCurrentPaint(PaintType.Green);

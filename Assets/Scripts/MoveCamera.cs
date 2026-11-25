@@ -4,7 +4,7 @@ public class MoveCamera : MonoBehaviour
 {
     public Transform cameraPos;
 
-    void Update()
+    void LateUpdate()
     {
         transform.position = cameraPos.position;
     }
