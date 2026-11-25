@@ -36907,6 +36907,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResumeGame
       objectReference: {fileID: 0}
+    - target: {fileID: 4727819859252067829, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1809382464}
+    - target: {fileID: 4727819859252067829, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GotoMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727819859252067829, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EndMenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4985773638557101115, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -36914,6 +36926,18 @@ PrefabInstance:
     - target: {fileID: 4985773638557101115, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612214290501645152, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1809382464}
+    - target: {fileID: 5612214290501645152, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612214290501645152, guid: fe44e5e7b9928754ba5e8921e3915bce, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EndMenuController, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
