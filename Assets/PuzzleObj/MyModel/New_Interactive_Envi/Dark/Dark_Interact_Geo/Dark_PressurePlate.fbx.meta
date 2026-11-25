@@ -7,28 +7,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.004
+      name: Base
+    second: {fileID: 2100000, guid: 6c4b599a8ee0d66479ab185fd2e23954, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
     second: {fileID: 2100000, guid: e024d3c6ad64018459ee430f6bab3c14, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.005
-    second: {fileID: 2100000, guid: e024d3c6ad64018459ee430f6bab3c14, type: 2}
+      name: Clockwise
+    second: {fileID: 2100000, guid: 6c4b599a8ee0d66479ab185fd2e23954, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.006
-    second: {fileID: 2100000, guid: e024d3c6ad64018459ee430f6bab3c14, type: 2}
+      name: Display
+    second: {fileID: 2100000, guid: b68cf1e4d9f61d3448b8b5bfbf9d4248, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.007
-    second: {fileID: 2100000, guid: e024d3c6ad64018459ee430f6bab3c14, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: glass
-    second: {fileID: 2100000, guid: e024d3c6ad64018459ee430f6bab3c14, type: 2}
+      name: glass.001
+    second: {fileID: 2100000, guid: 32dc6828da391da4098ee5f8ad5dc99e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

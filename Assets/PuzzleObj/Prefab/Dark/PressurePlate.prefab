@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6580935352337821943}
+  - {fileID: 44099986883297896}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8353850968413157094
@@ -90,6 +90,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9182594070876618246}
     m_Modifications:
+    - target: {fileID: 2717859070473384327, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.878
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717859070473384327, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.74
+      objectReference: {fileID: 0}
     - target: {fileID: 8445541921634605474, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
       propertyPath: m_Name
       value: Dark_PressurePlate
@@ -143,8 +151,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
---- !u!4 &6580935352337821943 stripped
+--- !u!4 &44099986883297896 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 9115082292048626456, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2717859070473384327, guid: 6ed092fa4dcc30b4fa30ed82804a9a7f, type: 3}
   m_PrefabInstance: {fileID: 2678351883271468015}
   m_PrefabAsset: {fileID: 0}
